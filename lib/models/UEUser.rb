@@ -7,8 +7,18 @@ class UEUser
     # @param {String} uri the user uri string
     # @param {String} key the user key
     # @param {String} secret the user secret
-    def initialize(uri)
+    def initialize(uri_or_key, secret=nil)
+        if secret then
+            # key,secret format
+            @user_key, @user_secret =  [uri_or_key, secret]
+            @uri = "user://#{@user_key}:#{@user_secret}@"
+        else
+            # uri format
+            @uri = uri_or_key
+            @user_key, @user_secret =  uri.match(/user:\/\/(.+):(.+)@/).captures
+        end
     end
+
 
     ###
     # Adds a connection to the current user

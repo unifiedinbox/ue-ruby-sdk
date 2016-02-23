@@ -5,6 +5,9 @@ class UEConnection
     # @param {String} connection_uri the connection uri
     # @param {User} User the User instance of the user owning the connection
     def initialize(connection_name, connection_uri, user)
+        @connection_name = connection_name
+        @connection_uri = connection_uri
+        @user = user
     end
 
 

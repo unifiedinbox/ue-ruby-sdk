@@ -18,5 +18,4 @@ class UERequest
         response = RestClient.post url, form.to_json
         JSON.parse(response).symbolize_keys
     end
-
 end
