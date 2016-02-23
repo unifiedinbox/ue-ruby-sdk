@@ -21,8 +21,8 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{UnificationEngine Ruby SDK as a wrapper over UnificationEngine API}
   gem.email = "hossam.saraya@gmail.com"
   gem.authors = ["Hossam Saraya"]
-  gem.require_paths = ['lib/']
-  gem.files = Dir.glob('lib/**/*.rb')
+
+
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

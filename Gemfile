@@ -18,4 +18,5 @@ group :production do
     gem "facets"
     gem "json"
     gem "rest-client"
+    gem "require_all"
 end

@@ -1,7 +1,5 @@
-#Require all models
-Gem.find_files("config/*.rb").each { |path| require path}
-Gem.find_files("models/*.rb").each { |path| require path }
-Gem.find_files("utilities/*.rb").each { |path| require path}
+require "require_all"
+require_all "lib"
 
 app = UEApp.new("x","y");
 
