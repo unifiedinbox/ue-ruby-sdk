@@ -10,7 +10,7 @@ $ gem install ue-ruby-sdk
 ## Usage
 
 ```ruby
-var app = newUEApp.new("APP_KEY","APP_SECRET");
+var app = UEApp.new("APP_KEY","APP_SECRET");
 ```
 
 #### Creating User
@@ -84,14 +84,3 @@ options = {
 #uris will hold the uris for the sent messages
 uris = app.list_connections[0].send_message options 
 ```
-
-
-
-
-
-
-
-
-
-[rubygems-url]: https://npmjs.org/package/unificationengine-client
-
