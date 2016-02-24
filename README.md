@@ -1,4 +1,4 @@
-# ue-ruby-sdk [rubygems-url] 
+# ue-ruby-sdk 
 > A UnificationEngine client SDK for Ruby/Rails
 
 ## Installation
