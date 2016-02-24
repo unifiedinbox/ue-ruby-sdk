@@ -6,6 +6,8 @@ require_all "lib/models", "lib/utilities/", "lib/config"
 $logger.warn "ENTRYPOINT"
 #TODO: Remove before release
 
-app = UEApp.new("2206779c2acc42e2824c62026001ac25","65c9ab904a3354738a4442e798f27387")
-puts app.list_users
-# binding.pry
+app = UEApp.new("b56063451547432d99111c91fd5d968b", "695590bcf875546bf85c6358d3512ef8" )
+
+binding.pry
+puts "X"
+

@@ -8,6 +8,7 @@ class UERequest
         user = request_options[:user]
         pass = request_options[:pass]
 
+        $logger.debug form.inspect
         #Inject user:pass into base url
         url_prefix = Constants.base_url.gsub /https?:\/\//, "https://#{user}:#{pass}@"
         #Concat base url with resource

@@ -37,12 +37,24 @@ class UEUser
     # Adds a connection to the current user
     #
     # @param {String} connection_name the connection identifier. Unique per connection
-    # @param {String} service a string representing a connector service - supported services are in config/service_schemes.js
+    # @param {String} service_scheme a string representing a connector service (service scheme)
     # @param {String} service_access_token service access token acquired from the provider (fb token, twitter token..etc)
     #
     # @return {UEConnection} connection the created connection
     #/
-    def add_connection(connection_name, service, service_access_token) 
+    def add_connection(connection_name, service_scheme, service_access_token) 
+
+        response = UERequest.fetch "connection/add",{
+            user: @user_key,
+            pass: @user_secret,
+            form: {
+                uri: "#{service_scheme}://#{service_access_token}@#{service_scheme}.com",
+                name: connection_name
+            }
+        }
+
+        response[:status] == 200? true: response
+
 
     end
 
