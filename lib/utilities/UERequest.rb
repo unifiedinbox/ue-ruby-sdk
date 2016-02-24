@@ -16,6 +16,6 @@ class UERequest
         $logger.debug "http => #{url}"
 
         response = RestClient.post url, form.to_json
-        JSON.parse(response).symbolize_keys
+        JSON.parse(response).symbolize_keys rescue response
     end
 end

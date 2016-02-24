@@ -15,10 +15,23 @@ class UEUser
         else
             # uri format
             @uri = uri_or_key
-            @user_key, @user_secret =  uri.match(/user:\/\/(.+):(.+)@/).captures
+            @user_key, @user_secret =  uri_or_key.match(/user:\/\/(.+):(.+)@/).captures
         end
     end
 
+
+    #Getters
+    def uri
+        @uri
+    end
+
+    def user_key
+        @user_key
+    end
+
+    def user_secret
+        @user_secret
+    end
 
     ###
     # Adds a connection to the current user

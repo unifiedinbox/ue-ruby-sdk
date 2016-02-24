@@ -12,7 +12,8 @@ group :development do
   gem "jeweler", "~> 2.0.1"
   gem "simplecov", ">= 0"
   gem "logging"
-  gem "ruby-debug"
+  gem "pry"
+  gem "pry-byebug"
 end
 
 group :production do

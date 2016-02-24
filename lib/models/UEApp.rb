@@ -16,10 +16,11 @@ class UEApp
     # @return {UEUser} user the created user
     #
     def create_user() 
-        UERequest.fetch "user/create", {
+        response = UERequest.fetch "user/create", {
             user: @api_key,
             pass: @api_secret
         } 
+        response[:uri] ? UEUser.new(response[:uri]) : nil
     end
 
     ##
@@ -29,13 +30,14 @@ class UEApp
     # @return {Boolean} success/fail
     #
     def delete_user( user ) 
-        UERequest.fetch "user/delete", {
+        response = UERequest.fetch "user/delete", {
             user: @api_key,
             pass: @api_secret,
             form: {
                 uri: user.uri
             }
         }
+        response[:status] == 200? true: false
     end
 
     ##
