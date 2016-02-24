@@ -48,7 +48,7 @@ connections = user.list_connections
 ```
 #### Removing a User Connection
 ```ruby
-user.remove_connection(connection_name) //true | false
+user.remove_connection(connection_name) #true | false
 ```
 
 #### Testing a connection
