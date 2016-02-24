@@ -22,5 +22,5 @@ Logging.appenders.stdout(
 
 $logger = Logging.logger['UE']
 $logger.add_appenders 'stdout'
-$logger.level = :debug
+$logger.level = :error
 
