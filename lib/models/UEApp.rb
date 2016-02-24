@@ -1,3 +1,4 @@
+require "facets"
 class UEApp
     ##
     # Constructor
@@ -43,13 +44,16 @@ class UEApp
     ##
     # Returns a list of users for the current app
     #
-    # @return {UEUser} users array of users on the app
+    # @return {String[]} array of user uri without password
     #
     def list_users() 
-        UERequest.fetch "user/list", {
+        response = UERequest.fetch "user/list", {
             user: @api_key,
             pass: @api_secret
         }
+
+        $logger.debug response[:users].inspect
+        users = response[:users].map { |user|  user.symbolize_keys[:uri] }
     end
 
 end

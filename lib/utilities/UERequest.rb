@@ -3,7 +3,6 @@ require "rest-client"
 require "facets"
 
 class UERequest
-
     def self.fetch(resource, request_options)
         form = request_options[:form] || {}
         user = request_options[:user]
