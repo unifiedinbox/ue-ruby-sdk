@@ -82,5 +82,5 @@ options = {
 }
 
 #uris will hold the uris for the sent messages
-uris = app.list_connections[0].send_message options 
+uris = user.list_connections[0].send_message options 
 ```
