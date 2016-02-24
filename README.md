@@ -54,7 +54,7 @@ user.remove_connection(connection_name) //true | false
 #### Testing a connection
 ```ruby
 #return true if working, false otherwise
-user.test_connection(serviceUrl) #eg: facebook://accesstoken@facebook.com
+user.test_connection(service_url) #eg: facebook://accesstoken@facebook.com
 ```
 
 ### Sending a message using a connection
