@@ -6,18 +6,16 @@ source "http://rubygems.org"
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
-  gem "shoulda"
-  gem "rdoc", "~> 3.12"
-  gem "bundler", "~> 1.0"
-  gem "jeweler", "~> 2.0.1"
-  gem "simplecov"
-  gem "logging"
+    gem "shoulda"
+    gem "rdoc", "~> 3.12"
+    gem "bundler", "~> 1.0"
+    gem "jeweler", "~> 2.0.1"
+    gem "simplecov"
 end
+gem "logging"
+gem "facets"
+gem "json"
+gem "rest-client"
+gem "uuidtools"
+gem "require_all"
 
-group :production do
-    gem "facets"
-    gem "json"
-    gem "rest-client"
-    gem "require_all"
-    gem "uuidtools"
-end
