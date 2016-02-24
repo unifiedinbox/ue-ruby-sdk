@@ -10,7 +10,7 @@ $ gem install ue-ruby-sdk
 ## Usage
 
 ```ruby
-var app = UEApp.new("APP_KEY","APP_SECRET");
+app = UEApp.new("APP_KEY","APP_SECRET");
 ```
 
 #### Creating User
