@@ -1,5 +1,6 @@
 class UEConnection
 
+
     ##
     # @param {String}  connection_name the connection identifier
     # @param {String} connection_uri the connection uri
@@ -41,6 +42,96 @@ class UEConnection
     # @returns {Boolean}
     #
     def _build_message_query(message_options)
+        throw :RECEIVERS_AND_MESSAGE_REQUIRED if !message_options.key?(:receivers) || !message_options.key?(:message)
+
+
+        default_content_type = "binary";
+        params = message_options
+        queryObject = {}
+
+        #Formulate Receivers
+        params[:receivers] = params[:receivers].map { |receiver|
+            if receiver[:name ] && receiver[:name].downcase == "me" 
+                {
+                    name:"Me",
+                    address:"test.test",
+                    Connector: @name
+                }
+            elsif receiver[:name] && receiver[:name].downcase == "page"
+                {
+                    name:"Page",
+                    address: receiver[:id],
+                    Connector: @name
+                }
+            end
+        }
+        queryObject[:receivers] = params[:receivers];
+
+
+        #Formulate Message Parts
+        queryObject[:parts] = [];
+        if params[:message].key?(:body)
+            queryObject[:parts].push({
+                id: @_generate_unique_id,
+                contentType: default_content_type,
+                type: "body",
+                data: params[:message][:body],
+            })
+        end
+
+        #Image Part
+        if params[:message].key?(:image) 
+            queryObject[:parts].push({
+                id: @_generate_unique_id,
+                contentType: default_content_type,
+                type: "image_link",
+                data: params[:message][:image]
+            })
+        end
+
+
+        #Link Part
+        if params[:message].key?(:link)
+            if params[:message][:link][:uri]
+                queryObject[:parts].push({
+                    id: @_generate_unique_id,
+                    contentType: default_content_type,
+                    type: "link",
+                    data: params[:message][:link][:uri]
+                });
+            end
+
+            if params[:message][:link][:description]
+                queryObject[:parts].push({
+
+                    id: @_generate_unique_id,
+                    contentType: default_content_type,
+                    type: "link_description",
+                    data: params[:message][:link][:description]
+                })
+            end
+
+            if params[:message][:link][:title]
+                queryObject[:parts].push({
+                    id: @_generate_unique_id,
+                    contentType: default_content_type,
+                    type: "link_title",
+                    data: params[:message][:link][:title]
+                })
+            end
+
+        end
+
+        #Subject
+        if params[:message][:subject]
+            queryObject[:subject ]= params[:message][:subject];
+        end
+
+
+        $logger.info(queryObject);
+        return queryObject;
+
+
     end
 
 
@@ -65,5 +156,4 @@ class UEConnection
     #
     def send_message(message_options)
     end
-
 end
