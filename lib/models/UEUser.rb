@@ -1,3 +1,4 @@
+require "facets"
 class UEUser
 
     #URI: user://e9759590-54ef-4cd3-a01c-cb2241ddd812:1aee1a25-e0c4-4036-a8fd-4d41adc8611b@
@@ -53,7 +54,7 @@ class UEUser
             }
         }
 
-        response[:status] == 200? true: response
+        (response[:status] == 200) || response
 
 
     end
@@ -62,6 +63,22 @@ class UEUser
     # List connections for current user
     # @return {Connection>} List of Connection objects representing the user connections
     def list_connections() 
+
+        response = UERequest.fetch "connection/list",{
+            user: @user_key,
+            pass: @user_secret,
+        }
+
+        if  !response[:connections]
+            return []
+        end
+
+        connections = []
+        response[:connections].each do |cname,v| 
+           connections.push(UEConnection.new cname, response[:connections][cname.to_sym][:uri], self)
+        end
+        connections 
+
     end
 
 
@@ -73,6 +90,17 @@ class UEUser
     # @return {Boolean} Success/Fail
     #
     def remove_connection(connection_name) 
+        response = UERequest.fetch "connection/remove",{
+            user: @user_key,
+            pass: @user_secret,
+            form:{
+                name: connection_name
+            }
+        }
+
+        response[:status] == 200
+
+
     end
 
 
@@ -83,6 +111,18 @@ class UEUser
     # @return {Boolean} Success/Fail
     #
     def test_connection(service_uri) 
+        response = UERequest.fetch "connection/test",{
+            user: @user_key,
+            pass: @user_secret,
+            form:{
+                uri: service_uri
+            }
+        }
+
+        response[:Status][:""][:status] == 200 
+
+
+
     end
 
 
