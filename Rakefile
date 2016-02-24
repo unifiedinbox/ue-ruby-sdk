@@ -21,7 +21,7 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{UnificationEngine Ruby SDK as a wrapper over UnificationEngine API}
   gem.email = "hossam.saraya@gmail.com"
   gem.authors = ["Hossam Saraya"]
-
+  gem.required_ruby_version = '~> 2.0'
 
   # dependencies defined in Gemfile
 end
