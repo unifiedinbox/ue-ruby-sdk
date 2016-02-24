@@ -16,6 +16,8 @@ class UERequest
         $logger.debug "http => #{url}"
 
         response = RestClient.post url, form.to_json
+
+        $logger.debug "resp => #{JSON.parse(response).deep_symbolize_keys}"
         JSON.parse(response).deep_symbolize_keys rescue response
     end
 end

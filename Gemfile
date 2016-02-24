@@ -21,4 +21,5 @@ group :production do
     gem "json"
     gem "rest-client"
     gem "require_all"
+    gem "uuidtools"
 end

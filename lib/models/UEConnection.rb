@@ -1,3 +1,4 @@
+require "uuidtools"
 class UEConnection
 
 
@@ -11,6 +12,9 @@ class UEConnection
         @user = user
     end
 
+    def user
+        @user
+    end
 
     def refresh_connection() 
     end
@@ -20,7 +24,8 @@ class UEConnection
     # @access private
     # @returns {Number} random id
     #
-    def _generate_unique_id()
+    def self.generate_unique_id()
+        UUIDTools::UUID.timestamp_create.to_s
     end
 
 
@@ -41,7 +46,7 @@ class UEConnection
     # @param {Array} message_options.message.link.title  message link title
     # @returns {Boolean}
     #
-    def _build_message_query(message_options)
+    def build_message_query(message_options)
         throw :RECEIVERS_AND_MESSAGE_REQUIRED if !message_options.key?(:receivers) || !message_options.key?(:message)
 
 
@@ -72,7 +77,7 @@ class UEConnection
         queryObject[:parts] = [];
         if params[:message].key?(:body)
             queryObject[:parts].push({
-                id: @_generate_unique_id,
+                id: UEConnection.generate_unique_id,
                 contentType: default_content_type,
                 type: "body",
                 data: params[:message][:body],
@@ -82,7 +87,7 @@ class UEConnection
         #Image Part
         if params[:message].key?(:image) 
             queryObject[:parts].push({
-                id: @_generate_unique_id,
+                id: UEConnection.generate_unique_id,
                 contentType: default_content_type,
                 type: "image_link",
                 data: params[:message][:image]
@@ -94,7 +99,7 @@ class UEConnection
         if params[:message].key?(:link)
             if params[:message][:link][:uri]
                 queryObject[:parts].push({
-                    id: @_generate_unique_id,
+                    id: UEConnection.generate_unique_id,
                     contentType: default_content_type,
                     type: "link",
                     data: params[:message][:link][:uri]
@@ -104,7 +109,7 @@ class UEConnection
             if params[:message][:link][:description]
                 queryObject[:parts].push({
 
-                    id: @_generate_unique_id,
+                    id: UEConnection.generate_unique_id,
                     contentType: default_content_type,
                     type: "link_description",
                     data: params[:message][:link][:description]
@@ -113,7 +118,7 @@ class UEConnection
 
             if params[:message][:link][:title]
                 queryObject[:parts].push({
-                    id: @_generate_unique_id,
+                    id: UEConnection.generate_unique_id,
                     contentType: default_content_type,
                     type: "link_title",
                     data: params[:message][:link][:title]
@@ -155,5 +160,15 @@ class UEConnection
     # @returns {Promise}
     #
     def send_message(message_options)
+        response = UERequest.fetch "message/send", {
+            user: @user.user_key,
+            pass: @user.user_secret,
+            form:{
+                message: self.build_message_query(message_options)
+            } 
+        }
+
+        response[:URIs] rescue []
+
     end
 end
