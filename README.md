@@ -33,7 +33,7 @@ app.delete_user(user) #true
 
 #### Adding a connection to a user
 ```ruby
-connection = user.add_connection "myconnectionname", "facebook", "facebook_access_token")
+connection = user.add_connection "myconnectionname", "facebook", "facebook_access_token"
 #connection is an instance of UEConnection
 ```
 
