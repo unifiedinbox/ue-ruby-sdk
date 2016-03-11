@@ -15,8 +15,16 @@ app = UEApp.new("APP_KEY","APP_SECRET");
 
 #### Creating User
 ```ruby
+#Creating a new user
 user = app.create_user
-#user is an instance of UEUser
+
+#Using existing user using key and secret
+user = UEUser.new "USER_KEY","USER_SECRET"
+
+#Using existing user using it's uri
+user = UEUser.new "user://USER_KEY:USER_SECRET@"
+
+
 ```
 
 #### Listing Users
