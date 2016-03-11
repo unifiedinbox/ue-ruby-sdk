@@ -5,11 +5,8 @@ app = UEApp.new("UE_APP_ID","UE_APP_SECRET")
 options = {
     receivers:[
         {
-            name:"me"
-        },
-        {
             name:"Page",
-            id:"122"
+            id:"283031198486599"
         }
     ],
     message:{
