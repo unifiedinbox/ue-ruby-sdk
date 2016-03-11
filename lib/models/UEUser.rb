@@ -44,17 +44,19 @@ class UEUser
     # @return {UEConnection} connection the created connection
     #/
     def add_connection(connection_name, service_scheme, service_access_token) 
-
+        uri = "#{service_scheme}://#{service_access_token}@#{service_scheme}.com"
         response = UERequest.fetch "connection/add",{
             user: @user_key,
             pass: @user_secret,
             form: {
-                uri: "#{service_scheme}://#{service_access_token}@#{service_scheme}.com",
+                uri: uri,
                 name: connection_name
             }
         }
 
-        (response[:status] == 200) || response
+        puts response
+        connection = UEConnection.new connection_name, uri, self
+        (response[:status]==200)? connection : response
 
 
     end
