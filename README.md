@@ -100,6 +100,12 @@ user = app.create_user
 
 
 facebook_connection = user.add_connection "fb", "facebook","FACEBOOK_ACCESS_TOKEN"
+#                                          |         |
+# Connection Name  ------------------------+         |
+# Connector Scheme  ---------------------------------+
+
+
+
 
 facebook_connection.send_message options
 
