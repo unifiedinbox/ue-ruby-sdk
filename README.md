@@ -67,14 +67,18 @@ user.test_connection(service_url) #eg: facebook://accesstoken@facebook.com
 
 ### Sending a message using a connection
 ```ruby
+require 'ue-ruby-sdk'
+
+app = UEApp.new("UE_APP_ID","UE_APP_SECRET")
+
 options = {
     receivers:[
         {
-            name:"me"
+            name:"Page",
+            id:"283031198486599"
         },
         {
-            name:"Page",
-            id:"122"
+            name: "Me"
         }
     ],
     message:{
@@ -89,6 +93,15 @@ options = {
     }
 }
 
-#uris will hold the uris for the sent messages
-uris = user.list_connections[0].send_message options 
+
+
+#Create a new user
+user = app.create_user
+
+
+facebook_connection = UEConnection.new( "fb", "facebook://FACEBOOK_ACCESS_TOKEN@facebook.com", user)
+
+facebook_connection.send_message options
+
+
 ```
