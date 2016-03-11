@@ -99,7 +99,7 @@ options = {
 user = app.create_user
 
 
-facebook_connection = UEConnection.new( "fb", "facebook://FACEBOOK_ACCESS_TOKEN@facebook.com", user)
+facebook_connection = user.add_connection "fb", "facebook","FACEBOOK_ACCESS_TOKEN"
 
 facebook_connection.send_message options
 
