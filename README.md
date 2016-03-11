@@ -10,13 +10,21 @@ $ gem install ue-ruby-sdk
 ## Usage
 
 ```ruby
-var app = UEApp.new("APP_KEY","APP_SECRET");
+app = UEApp.new("APP_KEY","APP_SECRET");
 ```
 
 #### Creating User
 ```ruby
+#Creating a new user
 user = app.create_user
-#user is an instance of UEUser
+
+#Using existing user using key and secret
+user = UEUser.new "USER_KEY","USER_SECRET"
+
+#Using existing user using it's uri
+user = UEUser.new "user://USER_KEY:USER_SECRET@"
+
+
 ```
 
 #### Listing Users
@@ -33,7 +41,7 @@ app.delete_user(user) #true
 
 #### Adding a connection to a user
 ```ruby
-connection = user.add_connection "myconnectionname", "facebook", "facebook_access_token")
+connection = user.add_connection "myconnectionname", "facebook", "facebook_access_token"
 #connection is an instance of UEConnection
 ```
 
@@ -59,14 +67,18 @@ user.test_connection(service_url) #eg: facebook://accesstoken@facebook.com
 
 ### Sending a message using a connection
 ```ruby
+require 'ue-ruby-sdk'
+
+app = UEApp.new("UE_APP_ID","UE_APP_SECRET")
+
 options = {
     receivers:[
         {
-            name:"me"
+            name:"Page",
+            id:"283031198486599"
         },
         {
-            name:"Page",
-            id:"122"
+            name: "Me"
         }
     ],
     message:{
@@ -81,6 +93,15 @@ options = {
     }
 }
 
-#uris will hold the uris for the sent messages
-uris = app.list_connections[0].send_message options 
+
+
+#Create a new user
+user = app.create_user
+
+
+facebook_connection = UEConnection.new( "fb", "facebook://FACEBOOK_ACCESS_TOKEN@facebook.com", user)
+
+facebook_connection.send_message options
+
+
 ```
