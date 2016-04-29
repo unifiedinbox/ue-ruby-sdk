@@ -8,16 +8,16 @@ class UERequest
         user = request_options[:user]
         pass = request_options[:pass]
 
-        $logger.debug form.inspect
+        # $logger.debug form.inspect
         #Inject user:pass into base url
         url_prefix = Constants.base_url.gsub /https?:\/\//, "https://#{user}:#{pass}@"
         #Concat base url with resource
         url = url_prefix + resource
-        $logger.debug "http => #{url}"
+        # $logger.debug "http => #{url}"
 
         response = RestClient.post url, form.to_json
 
-        $logger.debug "resp => #{JSON.parse(response).deep_symbolize_keys}"
+        # $logger.debug "resp => #{JSON.parse(response).deep_symbolize_keys}"
         JSON.parse(response).deep_symbolize_keys rescue response
     end
 end

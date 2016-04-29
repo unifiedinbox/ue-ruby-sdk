@@ -16,7 +16,7 @@ class UEConnection
         @user
     end
 
-    def refresh_connection() 
+    def refresh_connection()
     end
 
     ##
@@ -56,7 +56,7 @@ class UEConnection
 
         #Formulate Receivers
         params[:receivers] = params[:receivers].map { |receiver|
-            if receiver[:name ] && receiver[:name].downcase == "me" 
+            if receiver[:name ] && receiver[:name].downcase == "me"
                 {
                     name:"Me",
                     address:"test.test",
@@ -85,7 +85,7 @@ class UEConnection
         end
 
         #Image Part
-        if params[:message].key?(:image) 
+        if params[:message].key?(:image)
             queryObject[:parts].push({
                 id: UEConnection.generate_unique_id,
                 contentType: default_content_type,
@@ -133,7 +133,7 @@ class UEConnection
         end
 
 
-        $logger.info(queryObject);
+        # $logger.info(queryObject);
         return queryObject;
 
 
@@ -165,7 +165,7 @@ class UEConnection
             pass: @user.user_secret,
             form:{
                 message: self.build_message_query(message_options)
-            } 
+            }
         }
 
         response[:URIs] rescue []

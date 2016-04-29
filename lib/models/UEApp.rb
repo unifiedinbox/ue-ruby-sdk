@@ -16,11 +16,11 @@ class UEApp
     #
     # @return {UEUser} user the created user
     #
-    def create_user() 
+    def create_user()
         response = UERequest.fetch "user/create", {
             user: @api_key,
             pass: @api_secret
-        } 
+        }
         response[:uri] ? UEUser.new(response[:uri]) : nil
     end
 
@@ -30,7 +30,7 @@ class UEApp
     # @param {UEUser} user the user to delete
     # @return {Boolean} success/fail
     #
-    def delete_user( user ) 
+    def delete_user( user )
         response = UERequest.fetch "user/delete", {
             user: @api_key,
             pass: @api_secret,
@@ -46,13 +46,13 @@ class UEApp
     #
     # @return {String[]} array of user uri without password
     #
-    def list_users() 
+    def list_users()
         response = UERequest.fetch "user/list", {
             user: @api_key,
             pass: @api_secret
         }
 
-        $logger.debug response[:users].inspect
+        # $logger.debug response[:users].inspect
         users = response[:users].map { |user|  user.symbolize_keys[:uri] }
     end
 

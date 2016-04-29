@@ -43,7 +43,7 @@ class UEUser
     #
     # @return {UEConnection} connection the created connection
     #/
-    def add_connection(connection_name, service_scheme, service_access_token) 
+    def add_connection(connection_name, service_scheme, service_access_token)
         uri = "#{service_scheme}://#{service_access_token}@#{service_scheme}.com"
         response = UERequest.fetch "connection/add",{
             user: @user_key,
@@ -54,7 +54,7 @@ class UEUser
             }
         }
 
-        puts response
+        # puts response
         connection = UEConnection.new connection_name, uri, self
         (response[:status]==200)? connection : response
 
@@ -64,7 +64,7 @@ class UEUser
     ##
     # List connections for current user
     # @return {Connection>} List of Connection objects representing the user connections
-    def list_connections() 
+    def list_connections()
 
         response = UERequest.fetch "connection/list",{
             user: @user_key,
@@ -76,10 +76,10 @@ class UEUser
         end
 
         connections = []
-        response[:connections].each do |cname,v| 
+        response[:connections].each do |cname,v|
            connections.push(UEConnection.new cname, response[:connections][cname.to_sym][:uri], self)
         end
-        connections 
+        connections
 
     end
 
@@ -91,7 +91,7 @@ class UEUser
     # @param {String} connection_name the connection identifier
     # @return {Boolean} Success/Fail
     #
-    def remove_connection(connection_name) 
+    def remove_connection(connection_name)
         response = UERequest.fetch "connection/remove",{
             user: @user_key,
             pass: @user_secret,
@@ -112,7 +112,7 @@ class UEUser
     # @param {String} serviceUri service uri. eg: facebook://accesstoken@facebook.com
     # @return {Boolean} Success/Fail
     #
-    def test_connection(service_uri) 
+    def test_connection(service_uri)
         response = UERequest.fetch "connection/test",{
             user: @user_key,
             pass: @user_secret,
@@ -121,7 +121,7 @@ class UEUser
             }
         }
 
-        response[:Status][:""][:status] == 200 
+        response[:Status][:""][:status] == 200
 
 
 
